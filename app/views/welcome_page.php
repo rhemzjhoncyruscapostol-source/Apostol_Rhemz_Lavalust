@@ -419,8 +419,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         }
 
         .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .dot-r { background: #ff5f57; }
-        .dot-y { background: #febc2e; }
+        .dot-r { background: #16be3b; }
+        .dot-y { background: #1dac2e; }
         .dot-g { background: #28c840; }
 
         .code-filename {
