@@ -17,16 +17,16 @@ class StudentController extends Controller
      * TODO: Replace with YOUR actual student information.
      */
     private $student = [
-        'student_id'  => '2026-00427',
-        'name'        => 'Juan Dela Cruz',
-        'course'      => 'BS Computer Science',
+        'student_id'  => 'MCC2024-00104',
+        'name'        => 'Apostol, Rhemz Jhon Cyrus C.',
+        'course'      => 'BSIT',
         'year'        => '3rd Year',
-        'section'     => 'B',
-        'email'       => 'juan.delacruz@student.edu.ph',
-        'address'     => 'Dasmariñas, Cavite',
-        'contact'     => '0900-000-0000',
+        'section'     => '3-F3',
+        'email'       => 'rhemzjhoncyruscapostol@gmail.com',
+        'address'     => 'Puerto Galera',
+        'contact'     => '0981-272-9490',
         'skills'      => 'PHP, JavaScript, UI Design',
-        'bio'         => 'Aspiring full-stack developer who enjoys building small web tools.',
+        'bio'         => 'Kaya ko, kaya ko! I am a passionate and dedicated student with a strong interest in web development and programming. I enjoy learning new technologies and applying them to real-world projects. In my free time, I like to explore new places, read tech blogs, and work on personal coding projects.',
     ];
 
     /**
