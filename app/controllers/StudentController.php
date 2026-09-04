@@ -7,7 +7,7 @@ class StudentController extends Controller
     
     private $student = [
         'student_id'  => 'MCC2024-00104',
-        'name'        => 'Apostol, Rhemz Jhon Cyrus C.',
+        'name'        => 'Apostol, Rhemz jhon Cyrus C.',
         'course'      => 'BSIT',
         'year'        => '3rd Year',
         'section'     => '3-F3',
