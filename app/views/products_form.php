@@ -58,6 +58,7 @@ $form_action = $is_edit ? base_url('products/edit/' . $product['id']) : base_url
         }
         button:hover { background: #1d4ed8; }
         .msg.error { padding: .7rem .9rem; border-radius: 8px; font-size: .85rem; margin-bottom: 1rem; background: #fee2e2; color: #991b1b; }
+            .msg.success { padding: .7rem .9rem; border-radius: 8px; font-size: .85rem; margin-bottom: 1rem; background: #dcfce7; color: #166534; }
     </style>
 </head>
 <body>
@@ -70,6 +71,10 @@ $form_action = $is_edit ? base_url('products/edit/' . $product['id']) : base_url
     <?php if (!empty($error)): ?>
         <div class="msg error"><?= htmlspecialchars($error); ?></div>
     <?php endif; ?>
+
+        <?php if (!empty($success)): ?>
+            <div class="msg success"><?= htmlspecialchars($success); ?></div>
+        <?php endif; ?>
 
     <form method="post" action="<?= $form_action; ?>">
         <label for="product_name">Product Name</label>

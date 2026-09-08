@@ -74,8 +74,9 @@ class ProductController extends Controller
     {
         $data['mode'] = 'create';
         $data['product'] = null;
+        $data['success'] = $_SESSION['flash_success'] ?? null;
         $data['error'] = $_SESSION['flash_error'] ?? null;
-        unset($_SESSION['flash_error']);
+        unset($_SESSION['flash_success'], $_SESSION['flash_error']);
 
         $this->call->view('products_form', $data);
     }
@@ -96,7 +97,7 @@ class ProductController extends Controller
         $this->ProductModel->insert($result);
 
         $_SESSION['flash_success'] = 'Product added successfully.';
-        redirect('products');
+        redirect('products/create');
     }
 
     /**
