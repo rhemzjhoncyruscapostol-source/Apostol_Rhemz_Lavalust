@@ -74,6 +74,6 @@ class Create_users_table {
 
     public function down()
     {
-        $this->_lava->dbforge->drop_table('user');
+        $this->_lava->dbforge->drop_table('users');
     }
 }

@@ -40,8 +40,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                     <thead>
                         <tr><th scope="col">Member</th><th scope="col">Email</th><th scope="col">Username</th><th scope="col">Member ID</th></tr>
                     </thead>
-                    <?php if (!empty($users)): ?>
-                        <?php foreach ($users as $user): ?>
+                    <?php if (!empty($user)): ?>
+                        <?php foreach ($user as $user): ?>
                             <?php $initials = strtoupper(substr($user['firstname'], 0, 1) . substr($user['lastname'], 0, 1)); ?>
                                 <td><div class="person"><span class="avatar"><?= htmlspecialchars($initials); ?></span><span class="name"><?= htmlspecialchars($user['firstname'] . ' ' . $user['lastname']); ?></span></div></td>
                                 <td class="email"><?= htmlspecialchars($user['email']); ?></td>
@@ -131,8 +131,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         </tr>
     </thead>
     <tbody>
-        <?php if (!empty($users)): ?>
-            <?php foreach ($users as $user): ?>
+        <?php if (!empty($user)): ?>
+            <?php foreach ($user as $user): ?>
                 <tr>
                     <td><?= htmlspecialchars($user['id']); ?></td>
                     <td><?= htmlspecialchars($user['firstname']); ?></td>
