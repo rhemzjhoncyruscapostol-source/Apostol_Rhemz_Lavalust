@@ -3,6 +3,16 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 class ProductController extends Controller
 {
+    /**
+     * Actions only an admin is allowed to perform.
+     * Enforced again here as a backstop in case route middleware
+     * is ever changed - the route-level 'admin' middleware is the
+     * primary guard.
+     *
+     * @var array
+     */
+    private $admin_only_actions = ['create', 'store', 'edit', 'update', 'delete'];
+
     public function before_action()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -11,6 +21,37 @@ class ProductController extends Controller
 
         $this->call->database();
         $this->call->model('ProductModel');
+
+        $action = $this->current_action();
+        if (in_array($action, $this->admin_only_actions, true) && ($_SESSION['role'] ?? null) !== 'admin') {
+            $_SESSION['flash_error'] = 'Only administrators can manage products.';
+            redirect('products');
+            exit;
+        }
+    }
+
+    /**
+     * Best-effort detection of the action about to be invoked,
+     * based on the request method and URI shape.
+     *
+     * @return string
+     */
+    private function current_action()
+    {
+        $uri = trim(parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+        $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+
+        if (preg_match('#products/create$#', $uri)) {
+            return $method === 'POST' ? 'store' : 'create';
+        }
+        if (preg_match('#products/edit/\d+$#', $uri)) {
+            return $method === 'POST' ? 'update' : 'edit';
+        }
+        if (preg_match('#products/delete/\d+$#', $uri)) {
+            return 'delete';
+        }
+
+        return 'index';
     }
 
     /**

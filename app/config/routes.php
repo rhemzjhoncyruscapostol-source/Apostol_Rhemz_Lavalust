@@ -70,11 +70,13 @@ $router->post('/register', 'AuthController::store_register');
 $router->get('/logout', 'AuthController::logout');
 
 // -------------------------------------------------------------------
-// Product CRUD (Laboratory Exercise No. 5) - all routes require login
+// Product CRUD (Laboratory Exercise No. 5)
+// Viewing requires login only. Create/Update/Delete require an
+// 'admin' role on top of that - plain 'user' accounts are read-only.
 // -------------------------------------------------------------------
 $router->get('/products', 'ProductController::index')->middleware('auth');
-$router->get('/products/create', 'ProductController::create')->middleware('auth');
-$router->post('/products/create', 'ProductController::store')->middleware('auth');
-$router->get('/products/edit/{id}', 'ProductController::edit')->middleware('auth')->where_number('id');
-$router->post('/products/edit/{id}', 'ProductController::update')->middleware('auth')->where_number('id');
-$router->post('/products/delete/{id}', 'ProductController::delete')->middleware('auth')->where_number('id');
+$router->get('/products/create', 'ProductController::create')->middleware(['auth', 'admin']);
+$router->post('/products/create', 'ProductController::store')->middleware(['auth', 'admin']);
+$router->get('/products/edit/{id}', 'ProductController::edit')->middleware(['auth', 'admin'])->where_number('id');
+$router->post('/products/edit/{id}', 'ProductController::update')->middleware(['auth', 'admin'])->where_number('id');
+$router->post('/products/delete/{id}', 'ProductController::delete')->middleware(['auth', 'admin'])->where_number('id');

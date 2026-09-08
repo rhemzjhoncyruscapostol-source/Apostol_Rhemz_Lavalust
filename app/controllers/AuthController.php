@@ -66,6 +66,7 @@ class AuthController extends Controller
 
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
+        $_SESSION['role'] = $user['role'];
 
         $redirect_to = $_SESSION['redirect_after_login'] ?? 'products';
         unset($_SESSION['redirect_after_login']);

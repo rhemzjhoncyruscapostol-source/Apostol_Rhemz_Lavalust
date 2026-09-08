@@ -1,5 +1,7 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
+
+$is_admin = (($_SESSION['role'] ?? null) === 'admin');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,8 +75,13 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         <div class="actions">
             <span style="font-size:.85rem;color:#6b7280;">
                 Signed in as <strong><?= htmlspecialchars($_SESSION['username'] ?? ''); ?></strong>
+                <?php if (!$is_admin): ?>
+                    <span style="background:#e5e7eb;color:#4b5563;padding:.15rem .5rem;border-radius:6px;font-size:.75rem;margin-left:.4rem;">view only</span>
+                <?php endif; ?>
             </span>
-            <a class="btn btn-primary" href="<?= base_url('products/create'); ?>">+ Add Product</a>
+            <?php if ($is_admin): ?>
+                <a class="btn btn-primary" href="<?= base_url('products/create'); ?>">+ Add Product</a>
+            <?php endif; ?>
             <a class="btn btn-muted" href="<?= base_url('logout'); ?>">Logout</a>
         </div>
     </div>
@@ -96,7 +103,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Created</th>
-                    <th>Actions</th>
+                    <?php if ($is_admin): ?><th>Actions</th><?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -109,6 +116,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                             <td class="numeric">₱<?= number_format((float) $product['price'], 2); ?></td>
                             <td class="numeric"><?= htmlspecialchars($product['quantity']); ?></td>
                             <td><?= htmlspecialchars($product['created_at'] ?? ''); ?></td>
+                            <?php if ($is_admin): ?>
                             <td>
                                 <div class="row-actions">
                                     <a class="btn btn-muted btn-sm" href="<?= base_url('products/edit/' . $product['id']); ?>">Edit</a>
@@ -117,10 +125,13 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                     </form>
                                 </div>
                             </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <tr><td colspan="7" class="empty">No products yet. Click "Add Product" to create one.</td></tr>
+                    <tr><td colspan="<?= $is_admin ? 7 : 6; ?>" class="empty">
+                        <?= $is_admin ? 'No products yet. Click "Add Product" to create one.' : 'No products yet.'; ?>
+                    </td></tr>
                 <?php endif; ?>
             </tbody>
         </table>
