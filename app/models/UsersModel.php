@@ -22,4 +22,14 @@ class UsersModel extends Model
      * @var string
      */
     protected $primary_key = 'id';
+
+    /**
+     * Retrieve all users from the database.
+     *
+     * @return array An array of all users.
+     */
+    public function all()
+    {
+        return $this->db->get($this->table)->result_array();
+    }
 }
