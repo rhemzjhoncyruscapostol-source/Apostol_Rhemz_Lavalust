@@ -60,12 +60,18 @@ $router->get('/student/profile', 'StudentController::profile')->middleware('stud
 
 $router->get('/users', 'UsersController::index');
 
+// -------------------------------------------------------------------
+// Authentication
+// -------------------------------------------------------------------
 $router->get('/login', 'AuthController::login');
 $router->post('/login', 'AuthController::authenticate');
 $router->get('/register', 'AuthController::register');
 $router->post('/register', 'AuthController::store_register');
 $router->get('/logout', 'AuthController::logout');
 
+// -------------------------------------------------------------------
+// Product CRUD (Laboratory Exercise No. 5) - all routes require login
+// -------------------------------------------------------------------
 $router->get('/products', 'ProductController::index')->middleware('auth');
 $router->get('/products/create', 'ProductController::create')->middleware('auth');
 $router->post('/products/create', 'ProductController::store')->middleware('auth');
