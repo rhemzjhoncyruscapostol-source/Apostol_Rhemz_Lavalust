@@ -11,7 +11,7 @@ class StudentController extends Controller
         'course'      => 'BSIT',
         'year'        => '3rd Year',
         'section'     => '3-F3',
-        'email'       => 'rhemzjhoncyruscapostol@gmail.com',
+        'email'       => 'rhemjhoncyruscapostol@gmail.com',
         'address'     => 'Puerto Galera',
         'contact'     => '0981-272-9490',
         'skills'      => 'PHP, JavaScript, UI Design',
