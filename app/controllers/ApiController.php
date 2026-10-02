@@ -167,7 +167,7 @@ class ApiController extends Controller
     public function products_store()
     {
         $this->api->require_method('POST');
-        $this->api->require_jwt();
+        $this->require_admin();
 
         [$data, $error] = $this->validate_product($this->input(), false);
         if ($error) {
@@ -189,7 +189,7 @@ class ApiController extends Controller
         if (!in_array($_SERVER['REQUEST_METHOD'], ['PUT', 'PATCH'], true)) {
             $this->api->respond_error('Method Not Allowed', 405);
         }
-        $this->api->require_jwt();
+        $this->require_admin();
         $this->find_or_404($id);
 
         // PUT = full update, PATCH = partial update
@@ -213,7 +213,7 @@ class ApiController extends Controller
     public function products_delete($id)
     {
         $this->api->require_method('DELETE');
-        $this->api->require_jwt();
+        $this->require_admin();
         $this->find_or_404($id);
 
         $this->ProductModel->delete((int) $id);
@@ -223,6 +223,17 @@ class ApiController extends Controller
     // ------------------------------------------------------------
     // Helpers
     // ------------------------------------------------------------
+
+    private function require_admin(): array
+    {
+        $auth = $this->api->require_jwt();
+
+        if (($auth['role'] ?? null) !== 'admin') {
+            $this->api->respond_error('Administrator access required.', 403);
+        }
+
+        return $auth;
+    }
 
     /**
      * Request body as an array. Api::body() HTML-escapes every string, which
